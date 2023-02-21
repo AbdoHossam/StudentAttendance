@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Attendance.Core\Attendance.Core.csproj" />
+    <ProjectReference Include="..\Attendance.Data\Attendance.Data.csproj" />
+  </ItemGroup>
+
+</Project>

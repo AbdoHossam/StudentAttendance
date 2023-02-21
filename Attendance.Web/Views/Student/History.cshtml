@@ -1,0 +1,166 @@
+﻿@model HistoryListViewModel
+@{
+    ViewData["Title"] = "History";
+}
+
+<link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/rowgroup/1.3.0/css/rowGroup.dataTables.min.css" rel="stylesheet">
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Users</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">History</h6>
+
+        </div>
+        <div class="card-body">
+            <div class="table table-light responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Payed</th>
+                            <th>Exam</th>
+                            <th>Home Work</th>
+                            <th>Date</th>
+                            <th>Note</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Payed</th>
+                            <th>Exam</th>
+                            <th>Home Work</th>
+                            <th>Date</th>
+                            <th>Note</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var item in Model.StudentHistoryViews)
+                        {
+                            <tr>
+                                <td>@item.Student.Code</td>
+                                <td>@item.Student.Name</td>
+                                <td>@item.Student.Phone</td>
+                                <td>@item.Payed</td>
+                                <td>@item.Exam</td>
+                                <td>@item.HomeWork</td>
+                                <td>@item.CreationDate</td>
+                                <td>@item.Notes</td>
+                                <td>
+                                    <a class="btn btn-warning" style="color:#ffffff !important;" onclick="editHistory(@Json.Serialize(item.Id))">Edit</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="EditHistory" method="post" class="user">
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3 mb-sm-0">
+                            <input asp-for="HistoryViewModel.Id" type="hidden" />
+                            <input asp-for="HistoryViewModel.Payed" type="checkbox" style="position: absolute;" class="form-control form-control-user"
+                                   placeholder="Name">
+                            <label class="form-label" style="margin-left: 26%; padding-top: 3px;"  for="HistoryViewModel_Payed">Payed</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input asp-for="HistoryViewModel.Exam" style="position: absolute;" type="checkbox" class="form-control form-control-user"
+                                   placeholder="Code">
+                            <label class="form-label" style="margin-left: 26%; padding-top: 3px;" for="HistoryViewModel_Exam">Exam</label>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 mb-3 mb-sm-0">
+                            <input asp-for="HistoryViewModel.HomeWork" type="checkbox" style="position: absolute;" class="form-control form-control-user" placeholder="Address">
+                            <label class="form-label" style="margin-left: 22%; padding-top: 3px;" for="HistoryViewModel_HomeWork">Home Work</label>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-sm-0 row">
+                            <label class="form-label" style="padding-top:10px;" asp-for="HistoryViewModel.Notes">Notes</label>
+                            <input asp-for="HistoryViewModel.Notes" type="text" style="position: absolute; margin-left: 72px;" class="form-control form-control-user col-md-8" placeholder="Notes">
+                        </div>
+                    </div>
+                    <hr>
+
+                    <button class="btn btn-primary btn-user btn-block">
+                        Edit History
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.3.0/js/dataTables.rowGroup.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                orderFixed: [2, 'desc'],
+                //rowGroup: {
+                //    dataSrc: 2
+                //}
+            });
+
+        });
+        function editHistory(id) {
+            var model = {};
+            var history = @Html.Raw(Json.Serialize(Model.StudentHistoryViews));
+            for (let i = 0; i < history.length; i++) {
+                // Template literals
+                if (history[i].id == id) {
+                    model = history[i]
+                }
+            }
+            console.log(model);
+            $("#HistoryViewModel_Id").val(id);
+            //$("#StudentViewModel_Name").val(model.name);
+            //$("#StudentViewModel_Code").val(model.code);
+            //$("#StudentViewModel_Address").val(model.address);
+            //$("#StudentViewModel_Mobile").val(model.mobile);
+            //$("#StudentViewModel_Phone").val(model.phone);
+            //$("#StudentViewModel_Notes").val(model.notes);
+            //$("#StudentViewModel_City").val(model.city);
+            //$("#StudentViewModel_Region").val(model.region);
+            
+            $("#HistoryViewModel_Payed").prop('checked', model.payed);
+            $("#HistoryViewModel_Exam").prop('checked', model.exam);
+            $("#HistoryViewModel_HomeWork").prop('checked', model.homeWork);
+            $("#HistoryViewModel_Notes").val(model.notes);
+            $("#exampleModalCenter1").modal()
+        }
+
+    </script>
+}

@@ -1,0 +1,126 @@
+﻿@model UserListViewModel
+@{
+    ViewData["Title"] = "Users";
+}
+@section Styles{
+
+    <link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+}
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Users</h1>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+                <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add User
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table table-light responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Phone</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model.UserViewModels)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Role</td>
+                                    <td>@item.PhoneNumber</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                        <form asp-action="AddUser" method="post" class="user">
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input asp-for="Register.FirstName" type="text" class="form-control form-control-user" id="exampleFirstName"
+                                           placeholder="First Name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input asp-for="Register.LastName" type="text" class="form-control form-control-user" id="exampleLastName"
+                                           placeholder="Last Name">
+                                </div>
+                                
+                            </div>
+                            <div class="form-group row">
+                                 <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input asp-for="Register.PhoneNumber" type="text" class="form-control form-control-user" id="exampleLastName"
+                                           placeholder="Phone Number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Register.Email" type="email" class="form-control form-control-user"
+                                       placeholder="Email Address">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input asp-for="Register.Password" type="password" class="form-control form-control-user"
+                                           id="exampleInputPassword" placeholder="Password">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input asp-for="Register.ConfirmPassword" type="password" class="form-control form-control-user"
+                                           id="exampleRepeatPassword" placeholder="Repeat Password">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-user btn-block">
+                                Add User
+                            </button>
+                            <hr>
+                        </form>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+      
+
+    <!-- /.container-fluid -->
+    
+</div>
+</div>
+@section Scripts{
+    <script src="~/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/js/demo/datatables-demo.js"></script>
+
+    }

@@ -1,0 +1,429 @@
+﻿@model StudentListViewModel
+@{
+    ViewData["Title"] = "Students";
+}
+
+@section Styles{
+
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/rowgroup/1.3.0/css/rowGroup.dataTables.min.css" rel="stylesheet">
+
+    <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+}
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Students</h1>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <button type="button" class="btn btn-primary" style="float:right;" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add Student
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="table table-light responsive">
+                    <table class="table table-responsive-md" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Payed</th>
+                                <th>Exam</th>
+                                <th>Home Work</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Payed</th>
+                                <th>Exam</th>
+                                <th>Home Work</th>
+                                <th>Notes</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model.StudentViewModels)
+                            {
+                                <tr id="student-@item.Id">
+                                    <td>@item.Code</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <input asp-for="@item.Status" class="form-control" disabled>
+                                    </td>
+                                    <td>
+                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Payed" type="checkbox" />&nbsp;
+                                    </td>
+                                    <td>
+                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Exam" type="checkbox" />&nbsp;
+                                    </td>
+                                    <td>
+                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.HomeWork" type="checkbox" />&nbsp;
+                                    </td>
+                                    <td>
+                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Notes" />&nbsp;
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" style="color:#ffffff !important;" onclick="showAlert(@Json.Serialize(item.Id))">Save</a>
+                                        <a class="btn btn-warning" style="color:#ffffff !important;" onclick="editstudent(@Json.Serialize(item.Id))">Edit</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Edit" method="post" class="user">
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                @*<input asp-for="StudentViewModel.Id"  type="hidden" />*@
+                                <input asp-for="StudentViewModel.Name" id="name" type="text" class="form-control form-control-user"
+                                       placeholder="Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="StudentViewModel.Code" id="code" type="text" class="form-control form-control-user"
+                                       placeholder="Code">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Address" id="address" type="text" class="form-control form-control-user"
+                                       placeholder="Address">
+                            </div>
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Mobile" id="mobile" type="text" class="form-control form-control-user" placeholder="Mobile">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<div class="col-sm-6 mb-3 mb-sm-0">
+                                    <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
+                                </div>*@
+
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Phone" id="phone" class="form-control form-control-user" placeholder="Phone" />
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Notes" id="Notes" class="form-control form-control-user" placeholder="Notes">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.City" id="city" class="form-control form-control-user" placeholder="City" />
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Region" id="Region" class="form-control form-control-user" placeholder="Region">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="form-label" style="margin-left: 26%;" for="StudentViewModel_Status">Status</label>
+                            <input asp-for="StudentViewModel.Status" id="status" type="checkbox" class="form-control col-md-8" style=" margin-left: -26%;" />
+
+
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-primary btn-user btn-block">
+                            Add Student
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal  -->
+    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form asp-action="Edit" method="post" class="user">
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Id" type="hidden" />
+                                <input asp-for="StudentViewModel.Name" type="text" class="form-control form-control-user"
+                                       placeholder="Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input asp-for="StudentViewModel.Code" type="text" class="form-control form-control-user"
+                                       placeholder="Code">
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Address" type="text" class="form-control form-control-user" placeholder="Address">
+                            </div>
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Mobile" type="text" class="form-control form-control-user" placeholder="Mobile">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<div class="col-sm-6 mb-3 mb-sm-0">
+                                    <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
+                                </div>*@
+
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Phone" class="form-control form-control-user" placeholder="Phone" />
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Notes" class="form-control form-control-user" placeholder="Notes">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.City" class="form-control form-control-user" placeholder="City" />
+                            </div>
+                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                <input asp-for="StudentViewModel.Region" class="form-control form-control-user" placeholder="Region">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+
+                            <label class="form-label" style="margin-left: 26%;" for="StudentViewModel_Status">Status</label>
+                            <input asp-for="StudentViewModel.Status" type="checkbox" class="form-control col-md-8" style=" margin-left: -26%;" />
+
+
+                        </div>
+
+                        <hr>
+
+                        <button class="btn btn-primary btn-user btn-block">
+                            Edit User
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /.container-fluid -->
+
+</div>
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.3.0/js/dataTables.rowGroup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+            var students = @Html.Raw(Json.Serialize(Model.StudentViewModels));
+
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                orderFixed: [2, 'desc'],
+                //rowGroup: {
+                //    dataSrc: 2
+                //}
+            });
+
+        });
+        function showAlert(studentId) {
+            //console.log(item);
+
+            var model = {
+                "payed" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Payed ").is(":checked"),
+                "exam" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Exam ").is(":checked"),
+                "homeWork" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_HomeWork ").is(":checked"),
+                "notes" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Notes").val(),
+                 "studentId" : studentId
+            };
+            debugger;
+            var student = {}
+            for (let i = 0; i < students.length; i++) {
+                // Template literals
+                if (students[i].id == studentId) {
+                    student = students[i]
+                }
+            }
+            console.log(student);
+            if (student.unpaid) {
+                debugger;
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: student.name + ' did not paid on: ' + student.unPaidDate + '!',
+                    showCancelButton: true,
+                    confirmButtonText: 'Pay'
+
+                }, function (inputValue) {
+                    //Use the "Strict Equality Comparison" to accept the user's input "false" as string)
+                    if (inputValue === false) {
+                        swal("Well done!");
+                        console.log("Do here everything you want");
+                    } else {
+                        swal("Oh no...", "press CANCEL please!");
+                        console.log("The user says: ", inputValue);
+                    }
+                }).then(function (isConfirm) {
+                    if (isConfirm.isConfirmed) {
+                        console.log("Hello")
+                        console.log()
+                        $.ajax({
+                            url: "@(Url.Action("UpdateHistory", "Student"))/" + student.unpaidid,
+                            type: "Get",
+                            success: function (data) {
+                                console.log(data);
+                            },
+                            error: function (xhr, exception, thrownError) {
+                                var msg = "";
+                                if (xhr.status === 0) {
+                                    msg = "Not connect.\n Verify Network.";
+                                } else if (xhr.status == 404) {
+                                    msg = "Requested page not found. [404]";
+                                } else if (xhr.status == 500) {
+                                    msg = "Internal Server Error [500].";
+                                } else if (exception === "parsererror") {
+                                    msg = "Requested JSON parse failed.";
+                                } else if (exception === "timeout") {
+                                    msg = "Time out error.";
+                                } else if (exception === "abort") {
+                                    msg = "Ajax request aborted.";
+                                } else {
+                                    msg = "Error:" + xhr.status + " " + xhr.responseText;
+                                }
+
+
+                            }
+                        });
+                    }
+
+                    $.ajax({
+                        url: "@(Url.Action("AddHistory", "Student"))",
+                        dataType: "json",
+                        type: "Post",
+                        async: true,
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify(model),
+                        success: function (data) {
+                            console.log(data);
+                            window.location.reload();
+                        },
+                        error: function (xhr, exception, thrownError) {
+                            var msg = "";
+                            if (xhr.status === 0) {
+                                msg = "Not connect.\n Verify Network.";
+                            } else if (xhr.status == 404) {
+                                msg = "Requested page not found. [404]";
+                            } else if (xhr.status == 500) {
+                                msg = "Internal Server Error [500].";
+                            } else if (exception === "parsererror") {
+                                msg = "Requested JSON parse failed.";
+                            } else if (exception === "timeout") {
+                                msg = "Time out error.";
+                            } else if (exception === "abort") {
+                                msg = "Ajax request aborted.";
+                            } else {
+                                msg = "Error:" + xhr.status + " " + xhr.responseText;
+                            }
+
+
+                        }
+                    });
+
+
+                });
+            }
+            else {
+
+
+                $.ajax({
+                    url: "@(Url.Action("AddHistory", "Student"))",
+                    dataType: "json",
+                    type: "Post",
+                    async: true,
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify(model),
+                    success: function (data) {
+                        console.log(data);
+                        window.location.reload();
+                    },
+                    error: function (xhr, exception, thrownError) {
+                        var msg = "";
+                        if (xhr.status === 0) {
+                            msg = "Not connect.\n Verify Network.";
+                        } else if (xhr.status == 404) {
+                            msg = "Requested page not found. [404]";
+                        } else if (xhr.status == 500) {
+                            msg = "Internal Server Error [500].";
+                        } else if (exception === "parsererror") {
+                            msg = "Requested JSON parse failed.";
+                        } else if (exception === "timeout") {
+                            msg = "Time out error.";
+                        } else if (exception === "abort") {
+                            msg = "Ajax request aborted.";
+                        } else {
+                            msg = "Error:" + xhr.status + " " + xhr.responseText;
+                        }
+
+
+                    }
+                });
+            }
+        }
+
+        function editstudent(id) {
+            var model = {};
+
+            for (let i = 0; i < students.length; i++) {
+                // Template literals
+                if (students[i].id == id)
+                {
+                    model = students[i]
+                }
+            }
+            console.log(model);
+            $("#StudentViewModel_Id").val(id);
+            $("#StudentViewModel_Name").val(model.name);
+            $("#StudentViewModel_Code").val(model.code);
+            $("#StudentViewModel_Address").val(model.address);
+            $("#StudentViewModel_Mobile").val(model.mobile);
+            $("#StudentViewModel_Phone").val(model.phone);
+            $("#StudentViewModel_Notes").val(model.notes);
+            $("#StudentViewModel_City").val(model.city);
+            $("#StudentViewModel_Region").val(model.region);
+            $("#StudentViewModel_Status").prop('checked', model.status);
+            $("#exampleModalCenter1").modal()
+        }
+
+    </script>
+
+
+}
+
