@@ -25,7 +25,7 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Payed</th>
+                            <th>Paied</th>
                             <th>Exam</th>
                             <th>Home Work</th>
                             <th>Date</th>
@@ -38,7 +38,7 @@
                             <th>Code</th>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Payed</th>
+                            <th>Paied</th>
                             <th>Exam</th>
                             <th>Home Work</th>
                             <th>Date</th>
@@ -53,9 +53,9 @@
                                 <td>@item.Student.Code</td>
                                 <td>@item.Student.Name</td>
                                 <td>@item.Student.Phone</td>
-                                <td>@item.Payed</td>
+                                <td>@((item.Payed)?"Paied":"UnPaied")</td>
                                 <td>@item.Exam</td>
-                                <td>@item.HomeWork</td>
+                                <td>@((item.HomeWork)?"Done":"Not Done")</td>
                                 <td>@item.CreationDate</td>
                                 <td>@item.Notes</td>
                                 <td>
@@ -91,9 +91,9 @@
                             <label class="form-label" style="margin-left: 26%; padding-top: 3px;"  for="HistoryViewModel_Payed">Payed</label>
                         </div>
                         <div class="col-md-6">
-                            <input asp-for="HistoryViewModel.Exam" style="position: absolute;" type="checkbox" class="form-control form-control-user"
+                            <label class="form-label" style="padding-top: 10px;" for="HistoryViewModel_Exam">Exam</label>
+                            <input asp-for="HistoryViewModel.Exam" class="form-control form-control-user col-md-8"  style="position: absolute; margin-left: 61px; margin-top: -44px;"
                                    placeholder="Code">
-                            <label class="form-label" style="margin-left: 26%; padding-top: 3px;" for="HistoryViewModel_Exam">Exam</label>
 
                         </div>
 
@@ -156,7 +156,7 @@
             //$("#StudentViewModel_Region").val(model.region);
             
             $("#HistoryViewModel_Payed").prop('checked', model.payed);
-            $("#HistoryViewModel_Exam").prop('checked', model.exam);
+            $("#HistoryViewModel_Exam").val( model.exam);
             $("#HistoryViewModel_HomeWork").prop('checked', model.homeWork);
             $("#HistoryViewModel_Notes").val(model.notes);
             $("#exampleModalCenter1").modal()

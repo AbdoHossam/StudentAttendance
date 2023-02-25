@@ -111,7 +111,7 @@ namespace Attendance.Web.Controllers
                 Notes = model.StudentViewModel.Notes,
                 Code = model.StudentViewModel.Code,
                 Phone = model.StudentViewModel.Phone,
-                StagingSchoolLevelId = 1,
+                StagingSchoolLevelId = model.StudentViewModel.StagingSchoolLevelId,
                 City="Cairo",
                 Region="Nasr",
                 Status = model.StudentViewModel.Status,
@@ -133,9 +133,10 @@ namespace Attendance.Web.Controllers
             student.Notes = model.StudentViewModel.Notes;
             student.Code = model.StudentViewModel.Code;
             student.Phone = model.StudentViewModel.Phone;
-            student.StagingSchoolLevelId = 1;
+            student.StagingSchoolLevelId = model.StudentViewModel.StagingSchoolLevelId;
             student.Status = model.StudentViewModel.Status;
             student.ModifationDate = DateTime.Now;
+
             studentService.Update(student);
 
             return RedirectToAction("Index");

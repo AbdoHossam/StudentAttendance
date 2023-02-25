@@ -17,10 +17,9 @@ namespace Attendance.Core.Mapping
             modelBuilder.Entity<StudentAttendance>().ToTable("Attendance", "dbo");
             modelBuilder.Entity<StudentAttendance>().HasKey(x => x.Id);
             modelBuilder.Entity<StudentAttendance>().Property(x => x.HomeWork).IsRequired();
-            modelBuilder.Entity<StudentAttendance>().Property(x => x.Exam).IsRequired();
-            modelBuilder.Entity<StudentAttendance>().Property(x => x.Exam ).IsRequired();
+            modelBuilder.Entity<StudentAttendance>().Property(x => x.Exam);
             modelBuilder.Entity<StudentAttendance>().Property(x => x.Payed).IsRequired();
-            modelBuilder.Entity<StudentAttendance>().Property(x => x.Notes).IsRequired();
+            modelBuilder.Entity<StudentAttendance>().Property(x => x.Notes);
             modelBuilder.Entity<StudentAttendance>().Property(x => x.CreationDate).IsRequired();
             modelBuilder.Entity<StudentAttendance>().Property(x => x.ModifationDate).IsRequired();
             modelBuilder.Entity<StudentAttendance>().HasOne(x => x.Student).WithMany(x => x.Attendances).HasForeignKey(x => x.StudentId);
@@ -33,11 +32,11 @@ namespace Attendance.Core.Mapping
             modelBuilder.Entity<Student>().Property(x => x.Status).IsRequired();
             modelBuilder.Entity<Student>().Property(x => x.Name).IsRequired();
             modelBuilder.Entity<Student>().Property(x => x.Phone).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.Mobile).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.Notes).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.Address).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.City).IsRequired();
-            modelBuilder.Entity<Student>().Property(x => x.Region).IsRequired();
+            modelBuilder.Entity<Student>().Property(x => x.Mobile);
+            modelBuilder.Entity<Student>().Property(x => x.Notes);
+            modelBuilder.Entity<Student>().Property(x => x.Address);
+            modelBuilder.Entity<Student>().Property(x => x.City);
+            modelBuilder.Entity<Student>().Property(x => x.Region);
             modelBuilder.Entity<Student>().Property(x => x.CreationDate).IsRequired();
             modelBuilder.Entity<Student>().Property(x => x.ModifationDate).IsRequired();
 

@@ -66,7 +66,7 @@
                                         <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Payed" type="checkbox" />&nbsp;
                                     </td>
                                     <td>
-                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Exam" type="checkbox" />&nbsp;
+                                        <input class="form-control" asp-for="@item.StudentAttendanceViewModel.Exam" />&nbsp;
                                     </td>
                                     <td>
                                         <input class="form-control" asp-for="@item.StudentAttendanceViewModel.HomeWork" type="checkbox" />&nbsp;
@@ -99,43 +99,50 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form asp-action="Edit" method="post" class="user">
+                    <form asp-action="AddStudent" method="post" class="user">
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
                                 @*<input asp-for="StudentViewModel.Id"  type="hidden" />*@
                                 <input asp-for="StudentViewModel.Name" id="name" type="text" class="form-control form-control-user"
-                                       placeholder="Name">
+                                       placeholder="Name" required>
                             </div>
                             <div class="col-md-6">
                                 <input asp-for="StudentViewModel.Code" id="code" type="text" class="form-control form-control-user"
-                                       placeholder="Code">
+                                       placeholder="Code" required>
                             </div>
 
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
                                 <input asp-for="StudentViewModel.Address" id="address" type="text" class="form-control form-control-user"
-                                       placeholder="Address">
+                                       placeholder="Address" required>
                             </div>
+
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Mobile" id="mobile" type="text" class="form-control form-control-user" placeholder="Mobile">
+                                <input asp-for="StudentViewModel.Mobile" id="mobile" type="text" class="form-control form-control-user" placeholder="Mobile" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             @*<div class="col-sm-6 mb-3 mb-sm-0">
-                                    <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
-                                </div>*@
+                <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
+            </div>*@
 
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Phone" id="phone" class="form-control form-control-user" placeholder="Phone" />
+                                <input asp-for="StudentViewModel.Phone" id="phone" class="form-control form-control-user" placeholder="Phone" required />
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Notes" id="Notes" class="form-control form-control-user" placeholder="Notes">
+                                <input asp-for="StudentViewModel.Notes" id="Notes" class="form-control form-control-user" placeholder="Notes" required>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            
+                                <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings"  class="form-control" style="border-radius:25px;" required>
+                                    <option value="">Select Level</option>
+                                </select>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.City" id="city" class="form-control form-control-user" placeholder="City" />
+                                <input asp-for="StudentViewModel.City" id="city" class="form-control form-control-user" placeholder="City" required />
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <input asp-for="StudentViewModel.Region" id="Region" class="form-control form-control-user" placeholder="Region">
@@ -144,7 +151,7 @@
                         <div class="form-group row">
 
                             <label class="form-label" style="margin-left: 26%;" for="StudentViewModel_Status">Status</label>
-                            <input asp-for="StudentViewModel.Status" id="status" type="checkbox" class="form-control col-md-8" style=" margin-left: -26%;" />
+                            <input asp-for="StudentViewModel.Status" id="status" type="checkbox" class="form-control col-md-8" required style=" margin-left: -26%;" />
 
 
                         </div>
@@ -176,48 +183,54 @@
                     <form asp-action="Edit" method="post" class="user">
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Id" type="hidden" />
+                                <input asp-for="StudentViewModel.Id" type="hidden" required />
                                 <input asp-for="StudentViewModel.Name" type="text" class="form-control form-control-user"
-                                       placeholder="Name">
+                                       placeholder="Name" required>
                             </div>
                             <div class="col-md-6">
                                 <input asp-for="StudentViewModel.Code" type="text" class="form-control form-control-user"
-                                       placeholder="Code">
+                                       placeholder="Code" required>
                             </div>
 
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Address" type="text" class="form-control form-control-user" placeholder="Address">
+                                <input asp-for="StudentViewModel.Address" type="text" class="form-control form-control-user" placeholder="Address" required>
                             </div>
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Mobile" type="text" class="form-control form-control-user" placeholder="Mobile">
+                                <input asp-for="StudentViewModel.Mobile" type="text" class="form-control form-control-user" placeholder="Mobile" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             @*<div class="col-sm-6 mb-3 mb-sm-0">
-                                    <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
-                                </div>*@
+                <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control form-control-user"></select>
+            </div>*@
 
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Phone" class="form-control form-control-user" placeholder="Phone" />
+                                <input asp-for="StudentViewModel.Phone" class="form-control form-control-user" placeholder="Phone" required />
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Notes" class="form-control form-control-user" placeholder="Notes">
+                                <input asp-for="StudentViewModel.Notes" class="form-control form-control-user" placeholder="Notes" required />
                             </div>
+                        </div>
+                        <div class="form-group">
+
+                            <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control" style="border-radius:25px;" required>
+                                <option value="">Select Level</option>
+                            </select>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.City" class="form-control form-control-user" placeholder="City" />
+                                <input asp-for="StudentViewModel.City" class="form-control form-control-user" placeholder="City" required />
                             </div>
                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                <input asp-for="StudentViewModel.Region" class="form-control form-control-user" placeholder="Region">
+                                <input asp-for="StudentViewModel.Region" class="form-control form-control-user" placeholder="Region" required />
                             </div>
                         </div>
                         <div class="form-group row">
 
                             <label class="form-label" style="margin-left: 26%;" for="StudentViewModel_Status">Status</label>
-                            <input asp-for="StudentViewModel.Status" type="checkbox" class="form-control col-md-8" style=" margin-left: -26%;" />
+                            <input asp-for="StudentViewModel.Status" type="checkbox" class="form-control col-md-8" style=" margin-left: -26%;" required />
 
 
                         </div>
@@ -259,7 +272,7 @@
 
             var model = {
                 "payed" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Payed ").is(":checked"),
-                "exam" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Exam ").is(":checked"),
+                "exam" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Exam ").val(),
                 "homeWork" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_HomeWork ").is(":checked"),
                 "notes" : $("#student-" + studentId + "> td > #item_StudentAttendanceViewModel_Notes").val(),
                  "studentId" : studentId
@@ -418,6 +431,7 @@
             $("#StudentViewModel_Notes").val(model.notes);
             $("#StudentViewModel_City").val(model.city);
             $("#StudentViewModel_Region").val(model.region);
+            $("#StudentViewModel_StagingSchoolLevelId").val(model.stagingSchoolLevelId);
             $("#StudentViewModel_Status").prop('checked', model.status);
             $("#exampleModalCenter1").modal()
         }
