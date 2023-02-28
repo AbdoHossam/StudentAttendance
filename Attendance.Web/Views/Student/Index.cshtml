@@ -222,6 +222,7 @@
 
                             <select asp-for="StudentViewModel.StagingSchoolLevelId" asp-items="@Model.StudentViewModel.Stagings" class="form-control" style="border-radius:25px;" required>
                                 <option value="">Select Level</option>
+                              
                             </select>
                         </div>
                         <div class="form-group row">
@@ -437,6 +438,7 @@
             $("#StudentViewModel_City").val(model.city);
             $("#StudentViewModel_Region").val(model.region);
             $("#StudentViewModel_StagingSchoolLevelId").val(model.stagingSchoolLevelId);
+            $("#StudentViewModel_StagingSchoolLevelId option[value='"+model.stagingSchoolLevelId+"']").prop("selected",true);
             $("#StudentViewModel_Status").prop('checked', model.status);
             $("#exampleModalCenter1").modal()
         }
