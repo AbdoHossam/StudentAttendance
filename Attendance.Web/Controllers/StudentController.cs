@@ -36,13 +36,14 @@ namespace Attendance.Web.Controllers
         {
             var model = new StudentListViewModel
             {
-                StudentViewModels = mapper.Map<IList<StudentViewModel>>(studentService.GetAll(x => true, new List<string> { "StagingSchoolLevel" })).Select(x =>
+                StudentViewModels = mapper.Map<IList<StudentViewModel>>(studentService.GetAll(x => true, new List<string> { "StagingSchoolLevel", "StagingSchoolLevel.SchoolLevels" , "StagingSchoolLevel.StagingLevel" })).Select(x =>
                 {
                     var payeds = studentAttendanceService.GetAll(z => z.Payed == false && z.StudentId == x.Id, null);
                     var unpaid = (payeds.Any()) ? payeds.OrderByDescending(x => x.CreationDate).FirstOrDefault() : null;
                     x.Unpaid = (payeds.Any()) ? true : false;
                     x.UnPaidDate = (payeds.Any()) ? unpaid.CreationDate.ToShortDateString() : "";
                     x.Unpaidid = payeds.Any() ? unpaid.Id : 0;
+                   
                     return x;
                 }).ToList(),
                 StudentViewModel = new StudentViewModel
