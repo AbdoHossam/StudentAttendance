@@ -1,0 +1,66 @@
+﻿@model StagingSchoolModel
+@{
+    ViewData["Title"] = "AddNewSchool";
+}
+<!-- Style -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<!-- Script -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <div tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    </div>
+                    <div class="modal-body">
+                        <form asp-action="AddNewSchool" method="post" class="user">
+                            <div class="form-group row">
+                                <div class="col-md-6 mb-3 mb-sm-0">
+                                    <input asp-for="Id" type="hidden" />
+                                    <input asp-for="StagingLevelId" type="hidden" />
+                                    <input asp-for="StagingLevel.Id" type="hidden" />
+                                    <label asp-for="StagingLevel.Name">Name</label>
+                                    <input asp-for="StagingLevel.Name" type="text" class="form-control form-control-user"
+                                           placeholder="Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="StagingLevel.Description">Description</label>
+
+                                    <textarea asp-for="StagingLevel.Description" rows="2" class="form-control "
+                                              placeholder="Description" required></textarea>
+                                </div>
+
+                            </div>
+                            <div class="form-group row">
+                            
+                                <div class="col-md-6">
+                                    <label asp-for="SchoolLevelId">Type</label>
+                                    <select asp-for="SchoolLevelId" asp-items="@Model.SchoolLevelitems" class="form-control" class="form-control" style="border-radius:25px;" required>
+                                        <option value="">Select Level</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <button class="btn btn-primary btn-user btn-block">
+                                Save Level
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function (){
+        $('#SchoolLevelId').select2();
+    });
+</script>

@@ -6,8 +6,8 @@
 @section Styles{
 
     @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
-    <link href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/rowgroup/1.3.0/css/rowGroup.dataTables.min.css" rel="stylesheet">
+    <link href="~/datatables/jquery.datatables.min.css" rel="stylesheet" />
+    <link href="~/datatables/rowgroup.datatables.min.css" rel="stylesheet" />
 
     <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
 }
@@ -258,9 +258,9 @@
 
 </div>
 @section Scripts{
-    <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/rowgroup/1.3.0/js/dataTables.rowGroup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/datatables/datatables.min.js"></script>
+    <script src="~/datatables/datatables.rowgroup.min.js"></script>
+    <script src="~/datatables/sweetalert2@11.js"></script>
     <script>
             var students = @Html.Raw(Json.Serialize(Model.StudentViewModels));
 

@@ -1,0 +1,85 @@
+﻿@model IList<SchoolLevelModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Styles{
+
+    @*<link href="~/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link href="~/datatables/jquery.datatables.min.css" rel="stylesheet" />
+    <link href="~/datatables/rowgroup.datatables.min.css" rel="stylesheet" />
+
+    <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+}
+<div id="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">School Type</h1>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <a asp-action="AddNewSchool" class="btn btn-primary" style="float:right;">
+                    Add School
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table table-light responsive">
+                    <table class="table table-responsive-md" id="dataTable" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="student-@item.Id">
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>
+                                        <a asp-action="EditSchool" asp-route-id="@item.Id" class="btn btn-warning" style="color:#ffffff !important;">Edit</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/datatables/datatables.min.js"></script>
+    <script src="~/datatables/datatables.rowgroup.min.js"></script>
+    <script src="~/datatables/sweetalert2@11.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                orderFixed: [1, 'desc'],
+                //rowGroup: {
+                //    dataSrc: 2
+                //}
+            });
+        });
+    </script>
+}
+
